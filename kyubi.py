@@ -4,6 +4,7 @@ import aiohttp
 import discord
 import os
 from dotenv import load_dotenv
+from keep_alive import keep_alive
 
 load_dotenv()
 API_TOKEN = os.getenv("TOKEN")
@@ -48,8 +49,13 @@ async def on_message(message):
         except:
             await message.channel.send("Sorry, I can't understand you")
        
-        
+try:
+    keep_alive()
+    client.run(DISCORD_TOKEN)
 
-asyncio.get_event_loop().run_until_complete(client.run(DISCORD_TOKEN))
+except KeyboardInterrupt:
+    pass
+
+
 
 
